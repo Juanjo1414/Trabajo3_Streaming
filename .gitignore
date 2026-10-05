@@ -1,0 +1,4 @@
+# Logs de la corrida y respaldos que genera ejecutar_todo.sh
+logs/
+alertas_log_anterior_*.csv
+__pycache__/

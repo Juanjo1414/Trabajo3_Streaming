@@ -30,6 +30,7 @@
 - [Decisiones de diseño](#decisiones-de-diseño)
 - [Estructura del repositorio](#estructura-del-repositorio)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Validación rápida](#validación-rápida)
 - [Instalación y uso](#instalación-y-uso)
 - [Contraste con los entregables anteriores](#contraste-con-los-entregables-anteriores)
 - [Aprendizajes clave](#aprendizajes-clave)
@@ -175,11 +176,14 @@ Las capturas del detector alertando en vivo están en la carpeta [`capturas/`](c
 ├── productor_flota.py          # Fuente de datos (entregada por la asignatura, sin modificar)
 ├── detector.py                 # Detector con Spark Structured Streaming: las 3 reglas
 ├── resumen.py                  # Resumen de alertas por regla y vehículo
+├── ejecutar_todo.sh            # Corre y valida todo el pipeline con un solo comando
 ├── docker-compose.yml          # Kafka (KRaft) + contenedor de Spark
 ├── alertas_log.csv             # Evidencia: alertas de la corrida de validación
 ├── capturas/                   # Capturas del detector alertando en vivo
 ├── Streaming - Trabajo 3 - Sebastián Giraldo Franco y Juan Jose Jaramillo Mora.pdf   # Informe
 ├── LEEME.txt                   # Instrucciones originales de la asignatura
+├── .gitattributes              # Fuerza finales de línea LF en los .sh
+├── .gitignore                  # Excluye logs/ y respaldos de corridas anteriores
 └── LICENSE
 ```
 
@@ -194,7 +198,23 @@ Las capturas del detector alertando en vivo están en la carpeta [`capturas/`](c
 | Infraestructura | Docker y Docker Compose |
 | Productor | Python · `kafka-python` |
 
+## Validación rápida
+
+Un solo comando levanta Kafka y Spark, crea el topic, arranca el detector y el productor, muestra las alertas en vivo, detiene todo en orden y **valida automáticamente** que se hayan detectado los tres patrones sembrados (`V03`, `V05` y `V07`) sin falsos positivos:
+
+```bash
+bash ejecutar_todo.sh          # corrida de 120 s (por defecto)
+bash ejecutar_todo.sh 180      # corrida de 180 s
+APAGAR=1 bash ejecutar_todo.sh # además apaga Docker al terminar
+```
+
+**Requisitos:** Docker corriendo y Python 3 (`kafka-python` se instala solo). En Windows se ejecuta desde Git Bash o WSL. La primera vez descarga las imágenes de Docker y el conector de Spark, así que tarda más; las siguientes corridas son rápidas.
+
+Al terminar imprime `RESULTADO: PIPELINE VALIDADO` (código de salida 0) o `FALLO` (código 1). Si `V07` no aparece, basta con repetir con más tiempo: su silencio ocurre en un instante aleatorio entre los segundos 60 y 90. El script conserva el `alertas_log.csv` anterior como `alertas_log_anterior_<fecha>.csv`, guarda los logs en `logs/` y, si algo falla o se interrumpe con `Ctrl+C`, detiene el productor y el detector para no dejar procesos sueltos.
+
 ## Instalación y uso
+
+Alternativa paso a paso (lo que automatiza `ejecutar_todo.sh`).
 
 **Requisitos:** Docker Desktop y Python 3 con `kafka-python` (`pip install kafka-python`).
 

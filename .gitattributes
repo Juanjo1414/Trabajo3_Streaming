@@ -1,0 +1,2 @@
+# Los scripts de shell deben conservar finales de linea LF (en CRLF, bash falla con "\r: command not found")
+*.sh text eol=lf
