@@ -5,10 +5,12 @@
 #   kafka:29092    -> Spark (corre en el contenedor 'spark')
 # ============================================================
 
+name: streaming-trabajo3   # grupo (proyecto) de Docker: kafka y spark aparecen juntos
+
 services:
   kafka:
     image: apache/kafka:3.7.0
-    container_name: kafka
+    container_name: kafka-flota
     hostname: kafka
     ports:
       - "9092:9092"
@@ -29,7 +31,7 @@ services:
 
   spark:
     image: apache/spark:3.5.3-python3
-    container_name: spark
+    container_name: spark-flota
     user: root
     depends_on:
       - kafka
