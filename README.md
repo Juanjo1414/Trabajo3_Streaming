@@ -103,7 +103,7 @@ Parámetros configurables al inicio de `detector.py`:
 ### Regla 1. Exceso de velocidad sostenido
 *Agregación con ventana de tiempo nativa de Spark*
 
-Se filtran las lecturas con `velocidad > 100`, se agrupan por ventana de 10 segundos y vehículo con `window()` + `withWatermark()`, y se alerta cuando el conteo llega a 3 o más. Usa `outputMode("update")` y un conjunto de ventanas ya alertadas para no repetir la alerta cada vez que el conteo crece.
+Se filtran las lecturas con `velocidad > 100`, se agrupan por ventana de 10 segundos y vehículo con `window()` + `withWatermark()`, y se alerta cuando el conteo llega a 3 o más. Usa `outputMode("update")` y un conjunto de ventanas ya alertadas para no repetir la alerta cada vez que el conteo crece. El conteo que aparece en el mensaje es el que tenía la ventana en el momento de la primera alerta (3 o más), no su total final, y la hora registrada es la del inicio de la ventana.
 
 ### Regla 2. Caída anómala de combustible
 *`foreachBatch` con estado en el driver*
@@ -117,15 +117,29 @@ Se guarda el timestamp del último evento de cada vehículo y se compara contra 
 
 ## Resultados
 
-> Resultados de la corrida de validación (≈ 4 minutos). Cifras generadas con `python resumen.py` a partir de `alertas_log.csv`.
+Corrida de validación del 5 de octubre de 2026: unos 3 min 40 s de telemetría (220 ticks del productor, 8 vehículos) con **56 alertas** registradas en [`alertas_log.csv`](alertas_log.csv). Cifras generadas con `python resumen.py`.
 
-| Regla | Vehículo esperado | Alertas detectadas | Primera alerta |
-|---|---|---|---|
-| Velocidad sostenida | `V03` | XX | HH:MM:SS |
-| Caída de combustible | `V05` | XX | HH:MM:SS |
-| Vehículo en silencio | `V07` | XX | HH:MM:SS |
+| Regla | Vehículo esperado | Alertas | Episodios | Primera alerta |
+|---|---|---|---|---|
+| Velocidad sostenida | `V03` | 8 | 4 | 21:59:30 |
+| Caída de combustible | `V05` | 47 | 3 | 21:59:48 |
+| Vehículo en silencio | `V07` | 1 | 1 | 22:00:37 |
 
-**Vehículo con más alertas:** XX (XX alertas en total).
+| Vehículo | Velocidad | Combustible | Silencio | Total |
+|---|---|---|---|---|
+| `V05` | 0 | 47 | 0 | 47 |
+| `V03` | 8 | 0 | 0 | 8 |
+| `V07` | 0 | 0 | 1 | 1 |
+
+**Validación contra los patrones sembrados.** El detector identificó a los tres vehículos con anomalía y a ninguno más: los otros cinco (`V01`, `V02`, `V04`, `V06`, `V08`) no generaron ninguna alerta, es decir, no hubo falsos positivos.
+
+**Lectura de los resultados:**
+
+- **`V03` (velocidad):** 4 episodios, uno cada 60 s (21:59:30, 22:00:30, 22:01:30 y 22:02:30). Cada racha de 16 lecturas rápidas cae sobre dos ventanas consecutivas de 10 s, por eso son 2 alertas por episodio.
+- **`V05` (combustible):** 3 episodios, uno cada 80 s (21:59:48, 22:01:08 y 22:02:28), con alrededor de 16 lecturas anómalas cada uno (caídas de 2,5 a 4,0 puntos frente a un consumo normal de hasta 0,3). En el segundo episodio el nivel bajó de 5 y el productor rellenó el tanque a 100: esa lectura de reposición sube en vez de bajar y no genera alerta, por eso el episodio suma 15 alertas y no 16 (16 + 15 + 16 = 47).
+- **`V07` (silencio):** su último dato llegó a las 22:00:26 y la alerta salió a las 22:00:37, **11 segundos** después.
+
+**Observaciones técnicas.** Aparecieron tres avisos `Current batch is falling behind` (entre 2,2 y 3,1 s frente al *trigger* de 2 s), solo al arrancar el detector y al llegar los primeros datos; no volvieron a aparecer durante el resto de la corrida.
 
 Las capturas del detector alertando en vivo están en la carpeta [`capturas/`](capturas/).
 
@@ -139,7 +153,9 @@ Las capturas del detector alertando en vivo están en la carpeta [`capturas/`](c
 | Caída anómala de combustible | Contactar al conductor, verificar la ubicación del vehículo y, si no hay explicación, escalar como posible robo o fuga |
 | Vehículo en silencio | Llamar al conductor; si no responde, enviar apoyo a la última posición conocida (`lat`, `lon`) |
 
-**¿El silencio se detecta rápido o tarde?** Por diseño, con un retraso aproximado de **umbral (10 s) más el intervalo del micro-lote (2 s)**: un vehículo no puede declararse en silencio hasta que haya pasado el umbral sin datos. Es un compromiso entre rapidez y falsas alarmas: un umbral más corto detecta antes, pero confunde un retraso de red con una falla real.
+**¿Qué vehículo dio más alertas?** `V05`, con 47 de las 56 alertas (84 %), seguido de `V03` (8) y `V07` (1). El conteo, sin embargo, no es comparable entre reglas: la de combustible alerta en cada lectura anómala (una por segundo durante todo el episodio), la de velocidad alerta una vez por ventana y la de silencio una sola vez. Contado por **episodios** el orden cambia: `V03` (4), `V05` (3) y `V07` (1); y por urgencia operativa, el silencio de `V07` es el que exige la respuesta más rápida.
+
+**¿El silencio se detecta rápido o tarde?** Por diseño, con un retraso aproximado de **umbral (10 s) más el intervalo del micro-lote (2 s)**: un vehículo no puede declararse en silencio hasta que haya pasado el umbral sin datos. Es un compromiso entre rapidez y falsas alarmas: un umbral más corto detecta antes, pero confunde un retraso de red con una falla real. En la corrida de validación, `V07` emitió su último dato a las 22:00:26 y la alerta salió a las 22:00:37: **11 segundos** de latencia, unas 11 lecturas no recibidas antes de actuar.
 
 ## Decisiones de diseño
 
@@ -219,6 +235,7 @@ La diferencia clave es que aquí los datos nunca están completos: el sistema de
 - El orden de los eventos depende de la configuración de Kafka: el número de particiones y la clave de los mensajes determinan qué comparaciones entre lecturas consecutivas son válidas.
 - En detección de anomalías, los umbrales son decisiones de negocio con costo: un umbral estricto detecta antes pero genera más falsas alarmas, y uno laxo hace lo contrario.
 - Un sistema de alertas no está completo hasta que se pregunta qué se hace con cada alerta: la tecnología detecta, pero la respuesta operativa (llamar, escalar, enviar apoyo) es lo que genera valor.
+- El número de alertas depende de la granularidad de cada regla (una por lectura, una por ventana o una por evento), así que comparar vehículos solo por conteo engaña: conviene contar episodios.
 - Validar contra patrones sembrados (verdad de referencia conocida) permite comprobar que el detector acierta, en lugar de limitarse a mostrar que "emite alertas".
 
 ## Contexto académico

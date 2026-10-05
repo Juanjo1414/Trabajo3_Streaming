@@ -1,0 +1,57 @@
+hora,regla,vehiculo,detalle
+2026-10-05 21:59:30,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 21:59:30-21:59:40 (max 134 km/h)
+2026-10-05 21:59:40,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 21:59:40-21:59:50 (max 137 km/h)
+2026-10-05 21:59:48,COMBUSTIBLE,V05,cayo 3.9 puntos en una lectura (95.4 -> 91.5); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:49,COMBUSTIBLE,V05,cayo 3.6 puntos en una lectura (91.5 -> 87.9); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:50,COMBUSTIBLE,V05,cayo 3.3 puntos en una lectura (87.9 -> 84.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:51,COMBUSTIBLE,V05,cayo 3.7 puntos en una lectura (84.6 -> 80.9); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:52,COMBUSTIBLE,V05,cayo 3.8 puntos en una lectura (80.9 -> 77.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:53,COMBUSTIBLE,V05,cayo 2.5 puntos en una lectura (77.1 -> 74.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:54,COMBUSTIBLE,V05,cayo 3.5 puntos en una lectura (74.6 -> 71.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:55,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (71.1 -> 67.9); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:56,COMBUSTIBLE,V05,cayo 3.3 puntos en una lectura (67.9 -> 64.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:57,COMBUSTIBLE,V05,cayo 2.9 puntos en una lectura (64.6 -> 61.7); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:58,COMBUSTIBLE,V05,cayo 3.6 puntos en una lectura (61.7 -> 58.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 21:59:59,COMBUSTIBLE,V05,cayo 3.7 puntos en una lectura (58.1 -> 54.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:00:00,COMBUSTIBLE,V05,cayo 4.0 puntos en una lectura (54.4 -> 50.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:00:01,COMBUSTIBLE,V05,cayo 2.6 puntos en una lectura (50.4 -> 47.8); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:00:02,COMBUSTIBLE,V05,cayo 2.7 puntos en una lectura (47.8 -> 45.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:00:03,COMBUSTIBLE,V05,cayo 3.7 puntos en una lectura (45.1 -> 41.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:00:30,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 22:00:30-22:00:40 (max 138 km/h)
+2026-10-05 22:00:37,SILENCIO,V07,sin emitir hace 11 s (ultimo dato 22:00:26) | posible falla/accidente
+2026-10-05 22:00:40,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 22:00:40-22:00:50 (max 130 km/h)
+2026-10-05 22:01:08,COMBUSTIBLE,V05,cayo 2.9 puntos en una lectura (33.4 -> 30.5); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:09,COMBUSTIBLE,V05,cayo 2.9 puntos en una lectura (30.5 -> 27.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:10,COMBUSTIBLE,V05,cayo 2.8 puntos en una lectura (27.6 -> 24.8); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:11,COMBUSTIBLE,V05,cayo 2.8 puntos en una lectura (24.8 -> 22.0); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:12,COMBUSTIBLE,V05,cayo 3.6 puntos en una lectura (22.0 -> 18.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:13,COMBUSTIBLE,V05,cayo 3.1 puntos en una lectura (18.4 -> 15.3); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:14,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (15.3 -> 12.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:15,COMBUSTIBLE,V05,cayo 3.9 puntos en una lectura (12.1 -> 8.2); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:17,COMBUSTIBLE,V05,cayo 2.6 puntos en una lectura (100.0 -> 97.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:18,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (97.4 -> 94.2); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:19,COMBUSTIBLE,V05,cayo 2.8 puntos en una lectura (94.2 -> 91.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:20,COMBUSTIBLE,V05,cayo 3.8 puntos en una lectura (91.4 -> 87.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:21,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (87.6 -> 84.4); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:22,COMBUSTIBLE,V05,cayo 3.5 puntos en una lectura (84.4 -> 80.9); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:23,COMBUSTIBLE,V05,cayo 3.3 puntos en una lectura (80.9 -> 77.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:01:30,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 22:01:30-22:01:40 (max 138 km/h)
+2026-10-05 22:01:40,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 22:01:40-22:01:50 (max 139 km/h)
+2026-10-05 22:02:28,COMBUSTIBLE,V05,cayo 2.9 puntos en una lectura (69.8 -> 66.9); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:29,COMBUSTIBLE,V05,cayo 3.7 puntos en una lectura (66.9 -> 63.2); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:30,COMBUSTIBLE,V05,cayo 3.0 puntos en una lectura (63.2 -> 60.2); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:31,COMBUSTIBLE,V05,cayo 2.9 puntos en una lectura (60.2 -> 57.3); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:30,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 22:02:30-22:02:40 (max 133 km/h)
+2026-10-05 22:02:32,COMBUSTIBLE,V05,cayo 2.8 puntos en una lectura (57.3 -> 54.5); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:33,COMBUSTIBLE,V05,cayo 3.4 puntos en una lectura (54.5 -> 51.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:34,COMBUSTIBLE,V05,cayo 2.5 puntos en una lectura (51.1 -> 48.6); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:35,COMBUSTIBLE,V05,cayo 3.4 puntos en una lectura (48.6 -> 45.2); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:36,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (45.2 -> 42.0); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:37,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (42.0 -> 38.8); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:38,COMBUSTIBLE,V05,cayo 2.9 puntos en una lectura (38.8 -> 35.9); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:39,COMBUSTIBLE,V05,cayo 3.2 puntos en una lectura (35.9 -> 32.7); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:40,COMBUSTIBLE,V05,cayo 3.0 puntos en una lectura (32.7 -> 29.7); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:41,COMBUSTIBLE,V05,cayo 3.6 puntos en una lectura (29.7 -> 26.1); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:40,VELOCIDAD,V03,4 lecturas > 100 km/h en ventana 22:02:40-22:02:50 (max 140 km/h)
+2026-10-05 22:02:42,COMBUSTIBLE,V05,cayo 2.6 puntos en una lectura (26.1 -> 23.5); normal <= 0.3 | posible robo/fuga
+2026-10-05 22:02:43,COMBUSTIBLE,V05,cayo 3.3 puntos en una lectura (23.5 -> 20.2); normal <= 0.3 | posible robo/fuga
